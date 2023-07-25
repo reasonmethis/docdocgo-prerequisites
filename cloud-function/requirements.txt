@@ -1,0 +1,10 @@
+functions-framework==3.*
+requests==2.31.*
+
+google-cloud-logging==3.0.*
+oauth2client==4.1.*
+google-cloud-ndb==2.1.*
+google-auth==2.17.*
+google-api-python-client==2.84.*
+google-cloud-tasks==2.13.*
+google-cloud-firestore==2.11.*
