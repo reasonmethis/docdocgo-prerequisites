@@ -3,6 +3,7 @@
 texts
 dbs-private
 launch.json
+my_url.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

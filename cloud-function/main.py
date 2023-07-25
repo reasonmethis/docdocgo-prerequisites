@@ -8,6 +8,7 @@ BUSINESS_LOGIC_API_URL = "http://<PUT THE URL HERE OR IN ENV VAR>:8000/chat" # m
 
 db = firestore.Client()
 
+
 @functions_framework.http
 def get_chat_response(req: flask.Request):
     request_json = req.get_json(silent=True)
@@ -34,6 +35,8 @@ def get_chat_response(req: flask.Request):
     db.collection("test").add({"message": msg_text})
 
     return {
-        "text": f"Success!\nI received this response from the business logic API:\n{response}"
-        "\n\nI also was able to save data to Firestore."
+        "text": "I received this response from the business logic API:"
+        f"\n\n{response['content']}"
+        "\n\nI was also able to save data to Firestore."
+        "\n\nIf the above API response is a chunk of one of the Confluence pages, then everything is working!"
     }

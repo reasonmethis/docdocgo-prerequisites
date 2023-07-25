@@ -51,3 +51,8 @@ Please create a new project and set up Firestore in it, in Native Mode. I have n
      - /new "Start a new conversation"
      - /details "Summarize all info retrieved in response to query"
      - /quotes "Display direct quotes relevant to query"
+
+#### 7. Test the Chat App's ability to communicate with the business logic flask server.
+1. Start a conversation with the Chat App.
+2. Enter any message.
+3. If you receive a response containing a chunk of one of the Confluence documents then all components are working!
