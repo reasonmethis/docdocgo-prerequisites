@@ -48,9 +48,11 @@ Please create a new project and set up Firestore in it, in Native Mode. I have n
    - Avatar URL: https://i.imgur.com/66tcUZL.png
    - Description: PoC chatbot to interact with Confluence
    - Under the "Slash commands" section, add the following commands:
-     - /new "Start a new conversation"
-     - /details "Summarize all info retrieved in response to query"
-     - /quotes "Display direct quotes relevant to query"
+     - /new "Start a new conversation", id = 1
+     - /details "Summarize all info retrieved in response to query", id = 2
+     - /quotes "Display direct quotes relevant to query", id = 3
+     - /repeat "For timeouts: repeat generated response", id = 4
+
 
 #### 7. Test the Chat App's ability to communicate with the business logic flask server.
 1. Start a conversation with the Chat App.
