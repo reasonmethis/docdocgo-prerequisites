@@ -21,7 +21,7 @@ def create_test_vectorstore(docs, save_dir):
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
         docs = text_splitter.split_documents(docs)
 
-        embeddings = OpenAIEmbeddings()
+        embeddings = OpenAIEmbeddings(deployment="text-embedding-ada-002")
 
         # Only put the first two documents in the vectorstore for testing
         vectorstore = Chroma.from_documents(
@@ -43,7 +43,7 @@ num_docs = len(docs)
 print(f"1. Loaded {num_docs} documents from Confluence.")
 
 jsonl_path = os.path.join(os.getenv("SAVE_CONFLUENCE_DIR"), "docs.jsonl")
-docgrab.save_docs_to_jsonl(docs, jsonl_path)
+docgrab.save_docs_to_jsonl(docs, jsonl_path, mode="w") # for testing, overwrite previous docs
 print(f"2. Saved documents to {jsonl_path}.")
 
 # Create vectorstore from documents

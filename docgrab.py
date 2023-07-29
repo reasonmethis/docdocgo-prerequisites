@@ -34,8 +34,8 @@ def load_confluence() -> list[Document]:
     return documents
 
 
-def save_docs_to_jsonl(docs: Iterable[Document], file_path: str) -> None:
-    with open(file_path, "a") as f:
+def save_docs_to_jsonl(docs: Iterable[Document], file_path: str, mode="a") -> None:
+    with open(file_path, mode) as f:
         for doc in docs:
             f.write(doc.json() + "\n")
 
