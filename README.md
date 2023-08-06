@@ -58,3 +58,74 @@ Please create a new project and set up Firestore in it, in Native Mode. I have n
 1. Start a conversation with the Chat App.
 2. Enter any message.
 3. If you receive a response containing a chunk of one of the Confluence documents then all components are working!
+
+## Running Remotely
+
+### 1. Remote Server Access
+
+To log into the server, use the following SSH command:
+
+```
+ssh ubuntu@35.90.110.30
+```
+
+### 2. Service Endpoints
+
+- **Chat API Endpoint**: https://docdocgo.playground.carbon3d.com/chat
+  > Note: This URL passes through a load balancer which handles SSL and port remapping.
+
+- **Google Cloud Function URL**: [Link to GCP Function](https://console.cloud.google.com/functions/details/us-west1/docdocgo?env=gen1&project=docdocgo-394222&tab=source)
+
+### 3. Docker Setup
+
+The service is containerized using Docker and can be found in the following directory on the server:
+
+```
+~/docdocgo-prerequisites
+```
+
+#### Building the Docker Image:
+
+Navigate to the directory and build the Docker image using:
+
+```bash
+cd ~/docdocgo-prerequisites
+docker build -t docdocgo:latest .
+```
+
+#### Running the Docker Container:
+
+To run the Docker container and expose port 8000:
+
+```bash
+docker run --name docdocgo -p 8000:8000 -d -i -t docdocgo:latest /bin/bash
+```
+
+#### Starting the Application:
+
+To start the application inside the Docker container:
+
+```bash
+docker exec -it docdocgo /bin/bash
+waitress-serve --listen=0.0.0.0:8000 main:app
+```
+
+> Note: Currently, this step is performed manually due to a prompt during startup.
+
+#### Restarting the Docker Container:
+
+If you need to restart an existing Docker container:
+
+   ```bash
+   docker stop docdocgo
+   docker rm docdocgo
+   ```
+
+#### Saving Generated Data:
+
+If you need to the jsonl documents and the Chroma vector database generated inside the container:
+
+   ```bash
+   docker cp docdocgo:/test-docs test-docs
+   docker cp docdocgo:/test-dbs test-dbs
+   ```

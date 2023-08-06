@@ -18,10 +18,15 @@ VERBOSE = True
 
 def create_test_vectorstore(docs, save_dir):
     try:
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000, chunk_overlap=200
+        )
         docs = text_splitter.split_documents(docs)
 
-        embeddings = OpenAIEmbeddings(deployment="text-embedding-ada-002")
+        # As of Aug 8, 2023, max chunk size for Azure API is 16
+        embeddings = OpenAIEmbeddings(
+            deployment="text-embedding-ada-002", chunk_size=16
+        )
 
         # Only put the first two documents in the vectorstore for testing
         vectorstore = Chroma.from_documents(
@@ -42,8 +47,13 @@ docs = docgrab.load_confluence()
 num_docs = len(docs)
 print(f"1. Loaded {num_docs} documents from Confluence.")
 
-jsonl_path = os.path.join(os.getenv("SAVE_CONFLUENCE_DIR"), "docs.jsonl")
-docgrab.save_docs_to_jsonl(docs, jsonl_path, mode="w") # for testing, overwrite previous docs
+jsonl_path = os.path.join(
+    os.getenv("SAVE_CONFLUENCE_DIR"),
+    f"confluence-space-{os.getenv('CONFLUENCE_SPACE')}.jsonl",
+)
+docgrab.save_docs_to_jsonl(
+    docs, jsonl_path, mode="w"
+)  # for testing, overwrite previous docs
 print(f"2. Saved documents to {jsonl_path}.")
 
 # Create vectorstore from documents
