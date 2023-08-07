@@ -51,7 +51,9 @@ Please create a new project and set up Firestore in it, in Native Mode. I have n
      - /new "Start a new conversation", id = 1
      - /details "Summarize all info retrieved in response to query", id = 2
      - /quotes "Display direct quotes relevant to query", id = 3
-     - /repeat "For timeouts: repeat generated response", id = 4
+     - /retry "Resend last generated answer (for time-outs)", id = 4
+     - /help "Get help on using DocDocGo", id = 5
+     - /tip "Get a random tip on using DocDocGo", id = 6
 
 
 #### 7. Test the Chat App's ability to communicate with the business logic flask server.
